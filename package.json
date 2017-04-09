@@ -1,5 +1,5 @@
 {
-  "name": "pipeliner",
+  "name": "pipo",
   "version": "1.0.0",
   "description": "A haltable pipeline with filters. Good for building / chaining / doing things in a chain fashion.",
   "main": "index.js",
