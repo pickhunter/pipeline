@@ -1,0 +1,25 @@
+{
+  "name": "pipeliner",
+  "version": "1.0.0",
+  "description": "A haltable pipeline with filters. Good for building / chaining / doing things in a chain fashion.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pickhunter/pipeline.git"
+  },
+  "keywords": [
+    "pipeline",
+    "filter",
+    "chain",
+    "builder"
+  ],
+  "author": "Rohit Garg <rohhittt@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pickhunter/pipeline/issues"
+  },
+  "homepage": "https://github.com/pickhunter/pipeline#readme"
+}
