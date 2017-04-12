@@ -1,14 +1,16 @@
 class Pipeline {
 	constructor() {
 		this._filters = [];
+		this.halt = this._getExternallyCallableFn('_fnHalt');
 	}
 
-	halt() {
+	_fnHalt() {
 		this._halt = true;
 	}
 
 	_getExternallyCallableFn(fnName) {
 		return () => {
+			debugger
 			this[fnName].apply(this, arguments);
 		}
 	}
@@ -17,7 +19,7 @@ class Pipeline {
 		this._halt = false;
 
 		var filterArgs = arguments.length ?
-			arguments : [this._getExternallyCallableFn('halt'), this._getExternallyCallableFn('next')];
+			arguments : [this.halt, this._getExternallyCallableFn('next')];
 
 		this._filters.forEach((filter) => this._run(filter, filterArgs));
 	}
