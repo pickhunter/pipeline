@@ -1,33 +1,7 @@
 class Pipeline {
 	constructor() {
 		this._filters = [];
-		this.halt = this._getExternallyCallableFn('_fnHalt');
-	}
-
-	_fnHalt() {
-		this._halt = true;
-	}
-
-	_getExternallyCallableFn(fnName) {
-		return () => {
-			debugger
-			this[fnName].apply(this, arguments);
-		}
-	}
-
-	start() {
-		this._halt = false;
-
-		var filterArgs = arguments.length ?
-			arguments : [this.halt, this._getExternallyCallableFn('next')];
-
-		this._filters.forEach((filter) => this._run(filter, filterArgs));
-	}
-
-	_run( filter, args ) {
-		if(!this._halt) {
-			return filter.apply(filter, args);
-		}
+		this.halt = this._fnHalt.bind(this);
 	}
 
 	addFilter(fn) {
@@ -40,6 +14,29 @@ class Pipeline {
 
 	addPostFilter(fn) {
 		this.addFilter(fn);
+	}
+
+	set context(context) {
+		this._context = context;
+	}
+
+	start() {
+		this._halt = false;
+
+		var filterArgs = arguments.length ?
+			arguments : [this.halt];
+
+		this._filters.forEach((filter) => this._run(filter, filterArgs));
+	}
+
+	_fnHalt() {
+		this._halt = true;
+	}
+
+	_run( filter, args ) {
+		if(!this._halt) {
+			return filter.apply(this._context || this, args);
+		}
 	}
 }
 
